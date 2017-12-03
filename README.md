@@ -10,5 +10,5 @@ nano /etc/rc.local
 ```
 
 ```
-su root -c "/usr/bin/python /home/pi/git/blue/hc05.py"
+su root -c "/home/pi/git/blue/hc05.py"
 ```
