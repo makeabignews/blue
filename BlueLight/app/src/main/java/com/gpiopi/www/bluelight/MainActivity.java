@@ -56,52 +56,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("蓝牙智能电灯");
-
-        TextView msg=(TextView)findViewById(R.id.msg);
-
-        Button btn_on=(Button)findViewById(R.id.button_on);
-        Button btn_off=(Button)findViewById(R.id.button_off);
-
-        btn_on.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //setTitle("on");
-                SendStr("on");
-            }
-        });
-
-        btn_off.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //setTitle("off");
-                SendStr("off");
-            }
-        });
 
         ba = BluetoothAdapter.getDefaultAdapter();
-
         if (ba == null) {
             // 设备不支持蓝牙功能
         }else{
-            if (!ba.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }else{
-                Set<BluetoothDevice> pairedDevices = ba.getBondedDevices();
-                if (pairedDevices.size() > 0) {
-                    for (BluetoothDevice device : pairedDevices) {
-                        //可以获得已经配对的蓝牙的名称和地址
-
-                        light_address=device.getAddress();//获得灯的地址
-
-                        msg.setText(msg.getText()+"\n"+"设备名称："+device.getName());
-                        msg.setText(msg.getText()+"\n"+"设备地址："+device.getAddress());
-                        Log.e("tag","device name: "+device.getName()+" address: "+device.getAddress());
-                    }
-                }
-            }
             ba.enable();
+            light_address="98:D3:34:91:11:66";
             BluetoothDevice device = ba.getRemoteDevice(light_address);
             try {
                 bsocket = device.createRfcommSocketToServiceRecord(
@@ -111,9 +72,28 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                //msg.setText("err");
             }
 
         }
+
+        setTitle("蓝牙智能电灯");
+        Button btn_on=(Button)findViewById(R.id.button_on);
+        Button btn_off=(Button)findViewById(R.id.button_off);
+
+        btn_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendStr("1");
+            }
+        });
+
+        btn_off.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendStr("0");
+            }
+        });
+
+
     }
 }
