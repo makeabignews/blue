@@ -22,5 +22,5 @@ while True:
         print "off"
         GPIO.output(outpin,GPIO.LOW)
     s.flushInput()
-    #time.sleep(0.1)
+    time.sleep(0.2)
 GPIO.clearup()
