@@ -17,6 +17,7 @@ import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -91,35 +92,62 @@ public class MainActivity extends AppCompatActivity {
         button_conn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                write(("5").getBytes());
                 conn();
             }
         });
 
-        button_up.setOnClickListener(new View.OnClickListener() {
+        button_up.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                write(("1").getBytes());
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    write(("5").getBytes());
+                }
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    write(("1").getBytes());
+                }
+                return false;
             }
         });
-        button_down.setOnClickListener(new View.OnClickListener() {
+
+        button_down.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                write(("2").getBytes());
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    write(("5").getBytes());
+                }
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    write(("2").getBytes());
+                }
+                return false;
             }
         });
-        button_left.setOnClickListener(new View.OnClickListener() {
+
+        button_left.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                write(("3").getBytes());
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    write(("5").getBytes());
+                }
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    write(("4").getBytes());
+                }
+                return false;
             }
         });
-        button_right.setOnClickListener(new View.OnClickListener() {
+
+        button_right.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                write(("4").getBytes());
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    write(("5").getBytes());
+                }
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    write(("3").getBytes());
+                }
+                return false;
             }
         });
+
     }
 
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
